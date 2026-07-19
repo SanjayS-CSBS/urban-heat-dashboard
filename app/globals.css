@@ -1,0 +1,227 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import 'leaflet/dist/leaflet.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-geist-sans), 'Geist Fallback';
+  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  /* thermal scale tokens */
+  --color-heat-cool: var(--heat-cool);
+  --color-heat-mild: var(--heat-mild);
+  --color-heat-warm: var(--heat-warm);
+  --color-heat-hot: var(--heat-hot);
+  --color-heat-extreme: var(--heat-extreme);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  color-scheme: dark;
+  --radius: 0.75rem;
+
+  /* deep command-center navy */
+  --background: oklch(0.17 0.02 256);
+  --foreground: oklch(0.96 0.01 250);
+
+  /* glass surfaces */
+  --card: oklch(0.22 0.025 258);
+  --card-foreground: oklch(0.96 0.01 250);
+  --popover: oklch(0.2 0.025 258);
+  --popover-foreground: oklch(0.96 0.01 250);
+
+  /* thermal amber primary */
+  --primary: oklch(0.74 0.17 55);
+  --primary-foreground: oklch(0.18 0.02 256);
+
+  --secondary: oklch(0.28 0.03 258);
+  --secondary-foreground: oklch(0.96 0.01 250);
+  --muted: oklch(0.26 0.025 258);
+  --muted-foreground: oklch(0.68 0.02 256);
+
+  /* cooling cyan accent */
+  --accent: oklch(0.78 0.13 205);
+  --accent-foreground: oklch(0.18 0.02 256);
+
+  --destructive: oklch(0.62 0.23 27);
+  --border: oklch(0.7 0.05 240 / 14%);
+  --input: oklch(0.7 0.05 240 / 18%);
+  --ring: oklch(0.74 0.17 55);
+
+  /* thermal gradient scale */
+  --heat-cool: oklch(0.78 0.13 205);
+  --heat-mild: oklch(0.82 0.15 140);
+  --heat-warm: oklch(0.85 0.16 85);
+  --heat-hot: oklch(0.74 0.17 45);
+  --heat-extreme: oklch(0.62 0.23 27);
+
+  --chart-1: oklch(0.74 0.17 45);
+  --chart-2: oklch(0.78 0.13 205);
+  --chart-3: oklch(0.85 0.16 85);
+  --chart-4: oklch(0.62 0.23 27);
+  --chart-5: oklch(0.82 0.15 140);
+
+  --sidebar: oklch(0.2 0.025 258);
+  --sidebar-foreground: oklch(0.96 0.01 250);
+  --sidebar-primary: oklch(0.74 0.17 55);
+  --sidebar-primary-foreground: oklch(0.18 0.02 256);
+  --sidebar-accent: oklch(0.28 0.03 258);
+  --sidebar-accent-foreground: oklch(0.96 0.01 250);
+  --sidebar-border: oklch(0.7 0.05 240 / 14%);
+  --sidebar-ring: oklch(0.74 0.17 55);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: color-mix(in oklch, var(--card) 70%, transparent);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--border);
+  }
+  .glass-strong {
+    background: color-mix(in oklch, var(--card) 88%, transparent);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid var(--border);
+  }
+}
+
+/* ---- Leaflet dark theming ---- */
+.leaflet-container {
+  background: oklch(0.17 0.02 256);
+  font-family: var(--font-sans);
+}
+/* Neutralize global "transition: all" / reset rules that break Leaflet's
+   tile positioning and leave stuck zoom-scale transforms on tile containers. */
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-tile-container,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-zoom-box,
+.leaflet-zoom-animated,
+.leaflet-proxy {
+  transition: none !important;
+}
+.leaflet-tile {
+  position: absolute !important;
+  max-width: none !important;
+  width: 256px !important;
+  height: 256px !important;
+}
+.leaflet-tile-pane {
+  filter: none;
+}
+/* darken default raster basemaps for the command-center look */
+.map-dark .leaflet-tile-pane {
+  filter: brightness(0.62) invert(1) contrast(0.85) hue-rotate(185deg)
+    saturate(0.45) brightness(0.95);
+}
+.leaflet-control-zoom a {
+  background: color-mix(in oklch, var(--card) 90%, transparent) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+  backdrop-filter: blur(8px);
+}
+.leaflet-control-zoom a:hover {
+  background: var(--secondary) !important;
+}
+.leaflet-control-attribution {
+  background: color-mix(in oklch, var(--card) 70%, transparent) !important;
+  color: var(--muted-foreground) !important;
+  font-size: 9px !important;
+}
+.leaflet-control-attribution a {
+  color: var(--accent) !important;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: color-mix(in oklch, var(--card) 92%, transparent) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+.heat-marker {
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: oklch(0.17 0.02 256);
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--background) 60%, transparent),
+    0 0 18px 2px currentColor;
+  transition: transform 0.15s ease;
+}
+.heat-marker:hover {
+  transform: scale(1.12);
+}
+.pulse-ring {
+  animation: pulseRing 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
